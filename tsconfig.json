@@ -1,0 +1,16 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "ignoreDeprecations": "5.0",
+    "baseUrl": ".",
+    // "importHelpers": true,
+   
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["esnext", "dom"],//描述项目需要加载的 TypeScript 内置类型描述文件，跟三斜线指令/// <reference lib="" />作用相同
+    "types": ["@dcloudio/types"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+}
