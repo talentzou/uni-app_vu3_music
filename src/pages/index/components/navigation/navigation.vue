@@ -31,14 +31,14 @@
 <script setup lang="ts">
 import {  ref ,onMounted } from "vue";
 import { homepage } from "@/server/home";
-import type {tabbarData} from"./type"
+import type {tabbarData} from"@/types/home"
 
 //发现导航条
 const tabbar = ref<tabbarData[]>([]);
 onMounted(async () => {
-  let res = (await homepage()) 
-  // console.log("homepage", res);
-  tabbar.value = res.data;
+  let res = await homepage()
+  console.log("homepage", res);
+  tabbar.value = res.data ;
 });
 </script>
 

@@ -37,15 +37,5 @@
         width: 100%;
         z-index: 999;
     }
-    .search {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        box-sizing: border-box;
-        .input {
-            border: 1px solid rgb(127, 122, 122);
-            padding: 5px;
-            border-radius: 15px;
-        }
-    }
+   
 </style>

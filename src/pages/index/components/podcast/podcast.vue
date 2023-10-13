@@ -14,7 +14,8 @@
                             <text class="artists" v-for="author in item.resourceExtInfo.artists" :key="author.id" v-else>{{ author.name }}  </text>
                         </view>
                     </view>
-                    <text class="btn-play" v-if="isPlay">播放</text>
+                    <!-- <text class="btn-play" v-if="isPlay">播放</text> -->
+                    <svgIcon class="btn-play" v-if="isPlay" icon="icon-zanting"></svgIcon>
                 </view>
             </swiper-item>
         </swiper>

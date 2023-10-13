@@ -1,11 +1,11 @@
 import request from "@/utils/request";
 //推荐视频
-export const getVideoResponseData=()=>request({
-    url:'/video/timeline/recommend?offset=10',
-    // data:{
-    //     offset:5
-    // }
-})
+// export const getVideoResponseData=(offset=0)=>request({
+//     url:'/video/timeline/recommend?offset=10',
+//     data:{
+//         offset:offset
+//     }
+// })
 //mv
 export const getMvResponseData=()=>request({
     url:'/mv/first',
@@ -22,4 +22,7 @@ export const getVideoGroupListResponseData=()=>request({
     //获取视频标签/分类下的视频
     //url:'/video/group?id=9104'
     url:'/video/timeline/all',
+})
+export const top=()=>request({
+    url:'/video/category/list',
 })

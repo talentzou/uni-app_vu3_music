@@ -30,4 +30,19 @@ export type resources = {
     uiElement?: uiElement
     [string: string]: any
 }
+export type banners = {
+    code: number
+    banners: [{ imageUrl: string; [string: string]: any }]
+}
+//发现入口导航栏
+export type tabbarData = {
+    homepageMode: string
+    iconUrl: string
+    id: number
+    name: string
+    resourceState: null
+    skinSupport: boolean
+    url: string
+}
+
 

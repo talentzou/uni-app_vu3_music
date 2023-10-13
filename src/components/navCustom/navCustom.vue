@@ -2,13 +2,13 @@
     <uni-nav-bar
         :border="false"
         fixed>
-        <view v-if="props.icon === 'search'">
-            <input
-                confirm-type="search"
-                class="nav-bar-input"
-                type="text"
-                placeholder="输入搜索关键词"
-        /></view>
+        <view class="search" v-if="props.icon===`mic-filled`">
+                <input
+                    confirm-type="search"
+                    class="input"
+                    type="text"
+                    placeholder="输入搜索关键词"
+            /></view>
         <template #left>
             <uni-icons
                 type="bars"
@@ -38,4 +38,16 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+    .search {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        box-sizing: border-box;
+        .input {
+            border: 1px solid rgb(127, 122, 122);
+            padding: 5px;
+            border-radius: 15px;
+        }
+    }
+</style>

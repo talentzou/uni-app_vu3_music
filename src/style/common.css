@@ -1,0 +1,7 @@
+.icon {
+    font-family: "icon" !important;
+    background-color: red;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }

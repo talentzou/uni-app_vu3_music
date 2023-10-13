@@ -4,6 +4,7 @@ export interface responseData<T> {
     code: number
     data: T
     message: string
+    banners?:any
 }
 const baseUrl = "https://music.zouhjweb.top"
 /**
@@ -20,7 +21,7 @@ const httpInterceptor = {
         
         //添加超时时间
         options.timeout = 5000
-        const value = uni.getStorageSync('cookie');
+        // const value = uni.getStorageSync('cookie');
             //添加token
             options.header = {
                 ...options.header,

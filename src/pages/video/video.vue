@@ -2,16 +2,26 @@
     <view class="viewport">
         <navigation icon="plusempty"></navigation>
         <view class="nav">
-            <text :class="{ active: activeIndex === 0 }">推荐</text>
-            <text :class="{ active: activeIndex === 1 }">MV</text>
+            <text
+                :class="{ active: activeIndex === 0 }"
+                @tap="changeTag"
+                >推荐</text
+            >
+            <text
+                :class="{ active: activeIndex === 1 }"
+                @tap="changeTag"
+                >MV</text
+            >
         </view>
         <swiper
             class="swiper"
             @change="activeClass">
             <swiper-item>
-                <scroll-view
+                <view v-show="activeIndex === 0">视频接口已失效。。。。。。</view>
+                <!-- <scroll-view
                     scroll-y
-                    class="swiper-scroll">
+                    class="swiper-scroll"
+                    v-show="isTrue">
                     <uni-card
                         v-for="item in 4"
                         :key="item"
@@ -33,6 +43,36 @@
                             <text>44444</text>
                         </view>
                     </uni-card>
+                </scroll-view> -->
+                <scroll-view
+                    class="swiper-scroll"
+                    scroll-y
+                    v-show="!isTrue">
+                    <view class="column">
+                        <uni-card
+                            margin="5px 0"
+                            spacing="0"
+                            padding="0"
+                            v-for="(mv, index) in mvResData"
+                            :key="index"
+                            class="uni-card">
+                            <image
+                                :src="mv.cover"
+                                class="mvImage"
+                                lazy-load></image>
+                            <view class="mv-name">{{ mv.name }}</view>
+                            <view
+                                ><image
+                                    class="artistImage"
+                                    lazy-load></image
+                                ><text
+                                    v-for="artist in mv.artists"
+                                    :key="artist.id"
+                                    >{{ artist.name }}</text
+                                ></view
+                            >
+                        </uni-card>
+                    </view>
                 </scroll-view>
             </swiper-item>
             <swiper-item
@@ -69,7 +109,6 @@
                 </scroll-view>
             </swiper-item>
         </swiper>
-      
     </view>
 </template>
 
@@ -78,7 +117,6 @@
     import { onMounted, ref, reactive } from "vue"
     import { getMvResponseData } from "@/server/video"
     import type { mvData } from "@/types/video"
-    const videoResData = ref<any>()
     let mvResData = reactive<mvData[]>([])
     const videoData = async () => {
         let { data } = await getMvResponseData()
@@ -90,12 +128,22 @@
         console.log(e)
         activeIndex.value = e.detail.current
     }
+    const isTrue = ref<boolean>(true)
+    const changeTag = () => {
+        isTrue.value = !isTrue.value
+        if (activeIndex.value) activeIndex.value = 0
+        else {
+            activeIndex.value = 1
+        }
+        console.log(activeIndex.value)
+    }
     onMounted(() => {
         videoData()
     })
 </script>
 
 <style scoped lang="scss">
+  
     page {
         width: 100%;
         height: 100%;
@@ -129,6 +177,7 @@
         transform: translate3d(0, 0, 0);
         .swiper-scroll {
             height: 100%;
+            width: 100%;
             padding: 0 5px;
             box-sizing: border-box;
             transform: translate3d(0, 0, 0);

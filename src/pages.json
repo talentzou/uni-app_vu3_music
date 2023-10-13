@@ -48,6 +48,12 @@
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
+		},
+		{
+			"path": "pages/songListDetail/songListDetail",
+			"style": {
+				"navigationBarTitleText": "歌单"
+			}
 		}
 	],
 	"globalStyle": {
@@ -75,11 +81,11 @@
 			{
 				"text": "我的",
 				"pagePath": "pages/my/my"
-			},
-			{
-				"text": "社区",
-				"pagePath": "pages/community/community"
 			}
+			// {
+			// 	"text": "社区",
+			// 	"pagePath": "pages/community/community"
+			// }
 		]
 	}
 }

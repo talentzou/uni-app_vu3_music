@@ -55,10 +55,10 @@
     const submit = () => {
         form.value
             .validate()
-            .then((res) => {
+            .then((res:any) => {
                 console.log("表单数据信息：", res)
             })
-            .catch((err) => {
+            .catch((err:any) => {
                 console.log("表单错误信息：", err)
             })
     }

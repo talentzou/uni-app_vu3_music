@@ -23,7 +23,8 @@
                     <text>1111</text>
                     <text>2222</text>
                 </view>
-                <uni-icons type="home" size="30" class="play"></uni-icons>
+                <svgIcon  icon="icon-zanting" class="play"></svgIcon>
+                <!-- <uni-icons type="home" size="30" ></uni-icons> -->
             </view>
         </scroll-view>
     </view>
@@ -86,6 +87,7 @@ onMounted(async()=>{
         justify-content: space-between;
         padding: 0 10px;
         background-color: greenyellow;
+        align-items: center;
         height: 40px;
     }
     .scroll-view {
