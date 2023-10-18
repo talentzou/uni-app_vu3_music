@@ -17,7 +17,10 @@
             class="swiper"
             @change="activeClass">
             <swiper-item>
+                <Play></Play>
                 <view v-show="activeIndex === 0">视频接口已失效。。。。。。</view>
+
+                <!-- <audio ></audio> -->
                 <!-- <scroll-view
                     scroll-y
                     class="swiper-scroll"
@@ -123,6 +126,7 @@
         mvResData = data as mvData[]
         console.log(data)
     }
+    111
     const activeIndex = ref<number>(0)
     const activeClass = (e: any) => {
         console.log(e)
@@ -143,7 +147,6 @@
 </script>
 
 <style scoped lang="scss">
-  
     page {
         width: 100%;
         height: 100%;

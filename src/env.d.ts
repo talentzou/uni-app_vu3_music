@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 import svgIcon from "./components/svgIcon/svgIcon.vue"
+import Play from "@/components/play/play.vue"
+import navCustom from "@/components/navCustom/navCustom.vue"
 declare module '*.vue' {
   import { DefineComponent } from "vue"
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -17,5 +19,7 @@ interface ImportMetaEnv {
 declare module 'vue' {
   export interface GlobalComponents {
     svgIcon: typeof svgIcon,
+    Play:typeof Play,
+    navCustom:typeof navCustom
   }
 }

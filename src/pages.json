@@ -54,6 +54,43 @@
 			"style": {
 				"navigationBarTitleText": "歌单"
 			}
+		},
+		{
+			"path": "pages/personalFm/personalFm",
+			"style": {
+				"navigationBarTitleText": "Fm"
+			}
+		},
+		{
+			"path": "pages/top/top",
+			"style": {
+				"navigationBarTitleText": "top"
+			}
+		},
+		{
+			"path": "pages/songlist/songlist",
+			"style": {
+				"navigationBarTitleText": "songList"
+			}
+		},
+		{
+			"path": "pages/album/album",
+			"style": {
+				"navigationBarTitleText": "album"
+			}
+		},
+		{
+			"path": "pages/voiceBook/voiceBook",
+			"style": {
+				"navigationBarTitleText": "voiceBook"
+			}
+		},
+		{
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

@@ -37,3 +37,25 @@ export const getHomepage = () =>
             refresh: false,
         },
     })
+    ////playlist/detail?id=24381616  /playlist/track/all
+//歌单详情
+export const getPlaylistDetail = (id:string) =>
+    request<any>({
+        url: "/playlist/detail",
+        data: {
+           id
+           //24381616
+           //8803127688
+        },
+    })
+    //获取所有歌单歌曲
+    export const getPlaylistTrackAll = (id:string) =>
+    request<any>({
+        url: "/playlist/track/all",
+        data: {
+           id,
+           limit:30,
+           offset:0
+
+        },
+    })

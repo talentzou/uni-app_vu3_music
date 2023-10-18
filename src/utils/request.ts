@@ -14,7 +14,8 @@ const httpInterceptor = {
     //拦截触发调用
     invoke(options: any) {
         // console.log(options);
-
+        //  console.log( options.url);
+         
         //网络地址拼接
         options.url = baseUrl + options.url
         console.log(options.url);

@@ -9,7 +9,7 @@ export const rules = {
             {
                 validateFunction: function (rule, value, data, callback) {
                     // const reg=/^14$/
-                    const reg = /^\w{5,}/
+                    const reg = /^1[3-9]\d{9}$/
                     if (!reg.test(value)) {
                         callback("用户名格式不正确")
                     }

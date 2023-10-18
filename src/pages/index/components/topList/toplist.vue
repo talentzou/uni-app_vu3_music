@@ -3,17 +3,17 @@
         <text class="playlist">排行榜</text>
         <swiper class="swiper">
             <swiper-item v-for="(item, index) in props.data" :key="index">
-                <uni-card spacing="0">
+                <uni-card spacing="0" padding="0">
                     <!-- 排行榜标题 -->
-                    <text class="mainTitle">{{ item.uiElement.mainTitle.title }}</text>
+                    <text class="mainTitle">{{ item.uiElement.mainTitle?.title }}</text>
                     <view v-for="(list, sum) in item.resources" :key="sum">
                         <!-- 排行榜列表 -->
                         <view class="item">
-                            <image class="image" :src="list.uiElement.image.imageUrl" lazy-load></image>
+                            <image class="image" :src="list.uiElement.image?.imageUrl" lazy-load></image>
                             <text class="">{{ sum + 1 }}</text>
                             <view>
                                 <text>{{ list.uiElement.mainTitle.title }}</text>
-                                <text v-if="list.resourceExtInfo">{{ list.resourceExtInfo.songData.artists[0].name }}</text>
+                                <text v-if="list.resourceExtInfo">{{ list.resourceExtInfo.songData?.artists[0].name }}</text>
                             </view>
                             <text class="labelText">
                                 {{ list.uiElement.labelText.text }}
@@ -40,7 +40,7 @@
         }
     }
     .swiper {
-        height: 300px;
+        min-height:280px;
     }
     .mainTitle {
         font-size: 25px;

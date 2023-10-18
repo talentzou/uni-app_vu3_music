@@ -12,7 +12,7 @@
                 <navigator
                     class=""
                     target=""
-                    url="/pages/songListDetail/songListDetail"
+                    :url="`/pages/songListDetail/songListDetail?id=${item.creativeId}`"
                     hover-class="navigator-hover"
                     open-type="navigate">
                     <image

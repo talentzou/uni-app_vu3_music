@@ -1,6 +1,6 @@
 <template>
     <view class="viewport">
-        <customNavigation icon="mic-filled"></customNavigation>
+        <navCustom icon="mic-filled"></navCustom>
         <scroll-view scroll-y class="scroll-view">
             <!-- 主页轮播图 -->
             <banner />
@@ -17,6 +17,7 @@
               <!-- 主页推荐新歌 -->
             <newSongComp :list="newSongList" title="newSong" v-if="newSongList" :isPlay="false"></newSongComp>
         </scroll-view>
+        <Play></Play>
     </view>
 </template>
 
@@ -28,7 +29,6 @@
     import radarSongComp from "./components/playlist/playlist.vue"
     import newSongComp from "./components/podcast/podcast.vue"
     import personalComp from "./components/podcast/podcast.vue"
-    import customNavigation from "@/components/navCustom/navCustom.vue"
     import {  getHomepage } from "@/server/home"
     import topListComp from "./components/topList/toplist.vue"
     import { ref, onMounted } from "vue"
@@ -47,6 +47,8 @@
         let { code, data } = await getHomepage()
         if (code === 200) {
             playlists.value = data.blocks[1].creatives
+            console.log(  playlists.value );
+            
             personalList.value = data.blocks[2].creatives
             if (data.blocks.length > 4) {
                 topList.value = data.blocks[3].creatives
@@ -65,12 +67,13 @@
         background-color: #f7f7f7;
         height: 100%;
         width: 100%;
-        padding: 0 10px;
-        --window-top: 44px;
+        // padding: 0 10px;
+        // // --window-top: 44px;
     }
 
     .scroll-view {
-        height: calc(100vh - var(--window-bottom) - var(--window-top));
-        padding-bottom: var(--window-bottom);
+        // height: calc(100vh - var(--window-bottom) - var(--window-top)  - var(--window-bottom));
+        height: calc(100vh - $uni-double-bottom - $uni-nav-top);
+        // padding-bottom: var(--window-bottom);
     }
 </style>

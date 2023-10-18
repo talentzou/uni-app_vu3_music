@@ -1,7 +1,7 @@
 <template>
     <view class="viewport">
         <navigation icon="search"></navigation>
-        <scroll-view class="scroll-view">
+        <scroll-view class="scroll-view" scroll-y="false">
             <navigator
                 url="/pages/login/login"
                 hover-class="navigator-hover"
@@ -9,7 +9,7 @@
                 <image
                     class="avatar"
                     src="@/static/icon/user-check.png"></image>
-                <uni-card
+                <uni-card spacing="0"
                     class="card">
                     <view class="name"><text>名字</text></view>
                     <view><text>属性</text></view>
@@ -32,7 +32,7 @@
                     >
                 </view>
             </uni-card>
-            <uni-card title="我喜欢的音乐"
+            <uni-card title="我喜欢的音乐" spacing="0"
                 ><view class="create">
                     <uni-icons
                         type="plus"
@@ -58,6 +58,7 @@
                 >
             </uni-card>
         </scroll-view>
+        <Play></Play>
     </view>
 </template>
 
@@ -75,9 +76,8 @@
 
 <style scoped lang="scss">
     page {
-        width: 100vw;
-        height: 100vh;
-        padding: 0 5px;
+        width: 100%;
+        height: 100%;
         .image {
             height: 20px;
             width: 20px;
@@ -90,10 +90,11 @@
         }
     }
     .scroll-view {
-        height: calc(100vh - var(--window-bottom) - var(--window-top));
-        width: 100%;
-        position: relative;
-        // background-color: skyblue;
+        // height: calc(100vh - var(--window-bottom) - var(--window-top));
+        height: calc(100vh - $uni-double-bottom - $uni-nav-top);
+        box-sizing: border-box;
+        // padding-bottom: $uni-nav-bottom;
+        padding-bottom: $uni-nav-bottom;
         position: relative;
         .avatar {
             width: 60px;
