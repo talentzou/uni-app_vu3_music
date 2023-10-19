@@ -9,57 +9,71 @@
         <svgIcon
             icon="icon-zanting"
             v-if="isShow"
-            @tap="playMusic"></svgIcon>
+            @tap="playBtn"></svgIcon>
         <svgIcon
             icon="icon-bofangzhong"
-             v-else
-            @tap="playMusic"></svgIcon>
+            v-else
+            @tap="btnState"></svgIcon>
         <svgIcon icon="icon-bofangliebiao"></svgIcon>
     </view>
 </template>
 
 <script setup lang="ts">
     // import { onShow } from "@dcloudio/uni-app"
-    import {  ref,watch } from "vue"
-    import { songsStore } from "@/store/modules/songs";
-    const $songStoreData=songsStore()
-    console.log('$songStoreData',$songStoreData);
-    
-    let isShow= ref< boolean >(true)
-     //eslint-disable-next-line no-undef
-    const innerAudioContext = uni.createInnerAudioContext()
-    innerAudioContext.src = "https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3"
-    const play = (is:any) => {
-        if (!is) {
-            console.log(1111)
-            innerAudioContext.play()
-        } else {
-            console.log(2222)
-            innerAudioContext.pause()
-        }
-        console.log("音频是否在播放", innerAudioContext.paused)
-
-        innerAudioContext.onPause(() => {
-            console.log(3333)
-        })
-        // innerAudioContext.onPlay(() => {
-        //     console.log("开始播放")
-        // })
-        innerAudioContext.onError((res) => {
-            console.log(res.errMsg)
-            console.log(res.errCode)
-        })
-    }
+    import { ref, watch } from "vue"
+    import { songsStore } from "@/store/modules/songs"
+    const $songStoreData = songsStore()
+    // console.log("$songStoreData", $songStoreData)
+    //播放按钮图标切换
+    let isShow = ref<boolean>(true)
+    //音乐实例
+    let innerAudioContext = uni.createInnerAudioContext()
+    innerAudioContext.onPlay(() => {
+        console.log("暂停事件触发")
+    })
+    innerAudioContext.onPause(() => {
+        console.log("暂停事件触发")
+    })
     const playMusic = async () => {
         isShow.value = !isShow.value
-        await play(isShow.value)
+        isPlay = false
+        innerAudioContext.autoplay = true
+        innerAudioContext.src = $songStoreData.songUrl
+        innerAudioContext.onError((res) => {
+            console.log(res?.errMsg)
+            console.log(res?.errCode)
+        })
     }
-    
-    watch(()=>$songStoreData.songId,(newVal,oldVal)=>{
-      console.log(newVal,oldVal);
-      
-    })
-    defineExpose({ play })
+    //播放暂停按钮
+    //音乐实例控制
+    let isPlay = true
+    const btnState = () => {
+        if (!isPlay) {
+            console.log("播放")
+            innerAudioContext.play()
+            isPlay = !isPlay
+        } else {
+            console.log("音乐暂停")
+            innerAudioContext.pause()
+            isPlay = !isPlay
+        }
+        isShow.value = !isShow.value
+    }
+    //播放音乐icon·
+    const playBtn = async () => {
+        await playMusic()
+    }
+    //监听歌曲id变化
+    watch(
+        () => $songStoreData.songId,
+        (newVal, oldVal) => {
+            isPlay = true
+            innerAudioContext.destroy()
+            console.log(newVal, oldVal)
+            innerAudioContext = uni.createInnerAudioContext()
+        }
+    )
+    defineExpose({ playMusic, isShow })
 </script>
 
 <style scoped lang="scss">

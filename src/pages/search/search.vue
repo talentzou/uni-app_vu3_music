@@ -7,13 +7,13 @@
         <scroll-view
             scroll-y
             class="scroll"
-            v-if="isShow">
+            v-if="isView">
             <view class="container">
                 <text
                     class="songs"
                     v-for="text in searchHot"
                     :key="text"
-                    @tap="tapKeywords( text.first )"
+                    @tap="tapKeywords(text.first)"
                     >{{ text.first }}</text
                 >
             </view>
@@ -40,49 +40,50 @@
                 >
             </view></scroll-view
         >
-        <Play></Play>
+        <Play ref="play"></Play>
     </view>
 </template>
 
 <script lang="ts" setup>
     import { onLoad } from "@dcloudio/uni-app"
-    import { getSearchHotDetail, getToplistDetail } from "@/server/search"
-    import {  ref } from "vue"
-    import { songsStore } from "@/store/modules/songs";
-    const $songStoreData=songsStore()
-    const isShow = ref<boolean>(true)
+    import { getSearchHotDetail, } from "@/server/search"
+    import { ref, } from "vue"
+    import { songsStore } from "@/store/modules/songs"
+    const $songStoreData = songsStore()
+    const isView = ref<boolean>(true)
     //熱搜數據
     const searchHot = ref()
     const getSearchHotData = async () => {
         let res = await getSearchHotDetail()
         searchHot.value = res.result.hots
-        // console.log(res.result.hots);
-        let res22 = await getToplistDetail()
-        console.log(res22)
     }
     //搜索数据
     const resultData = ref<any>()
-    const searchResult = (data) => {
-        isShow.value = !isShow.value
-        console.log("hahaha", data)
+    const searchResult = (data: any) => {
+        isView.value = !isView.value
+        // console.log("hahaha", data)
         resultData.value = data
     }
     //获取nav实例
-    const nav=ref()
-    const tapKeywords=(text:string)=>{
-      nav.value.searchKeyword=text
-      console.log( nav.value.searchKeyword);   
+    const nav = ref()
+    const tapKeywords = (text: string) => {
+        nav.value.searchKeyword = text
+        console.log(nav.value.searchKeyword)
     }
     //播放歌曲
-    const playSongs=(songId:string|number)=>{
-          $songStoreData.songId=songId
-          $songStoreData.getSongDetailData()
-          $songStoreData.getSongUrlData()
+    const play = ref()
+    const playSongs = async (songId: string | number) => {
+        $songStoreData.songId = songId
+        await $songStoreData.getSongDetailData()
+        await $songStoreData.getSongUrlData()
+        // console.log("6666666", play)
+        // console.log("999999", play.value.isShow)
+        play.value.playMusic()
     }
     onLoad(async () => {
         await getSearchHotData()
     })
-    // onMounted(() => {})
+
 </script>
 
 <style scoped lang="scss">
