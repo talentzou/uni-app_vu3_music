@@ -1,6 +1,6 @@
 <template>
     <view class="viewport">
-        <navigation icon="search"></navigation>
+        <navigation icon="search" nav="bars"></navigation>
         <scroll-view class="scroll-view" scroll-y="false">
             <navigator
                 url="/pages/login/login"
@@ -64,14 +64,9 @@
 
 <script lang="ts" setup>
     import navigation from "@/components/navCustom/navCustom.vue"
-    // import { userStore } from "@/store/modules/user"
-    // const $userStore = userStore()
     const tags = ["最近播放", "本地下载", "云盘", "已购"]
     const icons = ["headphones", "download", "cloud-upload", "cart"]
 
-    // console.log('clear',$userStore.clear());
-    // console.log("login1111", $userStore.login())
-    // console.log("userstore", $userStore.test())
 </script>
 
 <style scoped lang="scss">

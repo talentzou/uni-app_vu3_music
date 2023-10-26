@@ -1,7 +1,8 @@
 <template>
     <view>
         <navCustom
-            icon="search"
+            icon=""
+            nav="arrow-left"
             ref="nav"
             @get="searchResult"></navCustom>
         <scroll-view
@@ -27,7 +28,7 @@
                     v-for="item in resultData"
                     :key="item"
                     class="list"
-                    @tap="playSongs(item.id)"
+                    @tap=" $audioStore.initMusic(item.id)"
                     ><text>{{ item.name }}</text>
                     <view class="artist"
                         ><text
@@ -45,17 +46,23 @@
 </template>
 
 <script lang="ts" setup>
+ // play.playMusic(item.id)
     import { onLoad } from "@dcloudio/uni-app"
-    import { getSearchHotDetail, } from "@/server/search"
-    import { ref, } from "vue"
-    import { songsStore } from "@/store/modules/songs"
-    const $songStoreData = songsStore()
+    import { getSearchHotDetail } from "@/server/search"
+    import { ref } from "vue"
+    import { audioStore } from "@/store/modules/audio"
+    const $audioStore=audioStore()
     const isView = ref<boolean>(true)
-    //熱搜數據
+    //播放组件实例
+    const play = ref()
+    //熱搜列表
     const searchHot = ref()
     const getSearchHotData = async () => {
-        let res = await getSearchHotDetail()
-        searchHot.value = res.result.hots
+        let { result } = await getSearchHotDetail()
+        // let res = await getSearchHotDetail()
+        searchHot.value = result!.hots
+        // console.log('2222',res);
+        
     }
     //搜索数据
     const resultData = ref<any>()
@@ -68,22 +75,11 @@
     const nav = ref()
     const tapKeywords = (text: string) => {
         nav.value.searchKeyword = text
-        console.log(nav.value.searchKeyword)
-    }
-    //播放歌曲
-    const play = ref()
-    const playSongs = async (songId: string | number) => {
-        $songStoreData.songId = songId
-        await $songStoreData.getSongDetailData()
-        await $songStoreData.getSongUrlData()
-        // console.log("6666666", play)
-        // console.log("999999", play.value.isShow)
-        play.value.playMusic()
+        // console.log(nav.value.searchKeyword)
     }
     onLoad(async () => {
         await getSearchHotData()
     })
-
 </script>
 
 <style scoped lang="scss">
@@ -124,19 +120,5 @@
         }
     }
 
-    // .scroll-top {
-    //     width: 100%;
-    //     height: 500px;
-    //     .top {
-    //         display: flex;
-    //         height: 100%;
-    //     }
-    //     .swiper {
-    //         background-color: rgb(82, 82, 73);
-    //         width: 250px;
-    //         height: 100%;
-    //         margin-right: 20px;
-    //         border-radius: 10px;
-    //     }
-    // }
+   
 </style>

@@ -9,28 +9,32 @@
                 type="text"
                 placeholder="输入搜索关键词"
                 @tap="search"
-                v-if="icon === `mic-filled`" />
+                style="width: 100%;"
+                v-if="props.icon === `mic-filled`" />
             <input
                 confirm-type="search"
                 class="input"
                 type="text"
+                style="width: 100%;"
                 v-model.trim="searchKeyword"
                 placeholder="输入搜索关键词"
-                v-else />
+                v-if="props.nav==='arrow-left'" />
         </view>
         <template #left>
             <uni-icons
-                type="bars"
+                :type="nav"
                 size="30"
                 color="#999"
-                @tap="openDrawer" />
+                @tap="openDrawerOrBack" />
         </template>
         <template #right>
             <uni-icons
-                :type="icon"
+                :type="props.icon"
                 size="30"
                 color="#999"
-                @click="getSearchData" />
+                v-if="props.icon"
+                 />
+          <text @tap="getSearchData" class="search-result" v-if="!props.icon">搜索</text>
         </template>
     </uni-nav-bar>
     <drawer ref="uniDrawer"></drawer>
@@ -41,7 +45,8 @@
     import drawer from "@/components/drawer/drawer.vue"
     import { getSearchMultiMatch } from "@/server/search"
     // import { onLoad } from "@dcloudio/uni-app"
-    defineProps<{ icon: string }>()
+   const props=defineProps<{ nav:string, icon: string }>()
+
     const $emit = defineEmits<{ (e: "get", data: []): void }>()
     //搜索关键字
     const searchKeyword = ref<any>("")
@@ -53,7 +58,10 @@
         console.log(searchKeyword.value)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         let { code, result } = await getSearchMultiMatch(searchKeyword.value)
-        $emit("get", result.songs)
+        // let res = await getSearchMultiMatch(searchKeyword.value)
+        // console.log('1111',res);
+        
+        $emit("get", result!.songs)
     }
 
     // onLoad(async () => {
@@ -61,7 +69,8 @@
     // })
     onMounted(() => {})
     const uniDrawer = ref()
-    const openDrawer = () => {
+    const openDrawerOrBack = () => {
+        if(props.nav!=='bars') return uni.switchTab({url:'/pages/index/index'})
         console.log(uniDrawer)
         uniDrawer.value.open()
     }
@@ -78,11 +87,17 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
+        align-items: center;
         box-sizing: border-box;
         .input {
             border: 1px solid rgb(127, 122, 122);
             padding: 5px;
             border-radius: 15px;
         }
+    }
+    .search-result {
+        font-size: 25px;
+        font-weight: 700;
+        padding: 5px;
     }
 </style>

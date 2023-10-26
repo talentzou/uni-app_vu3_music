@@ -7,10 +7,12 @@ export const rules = {
                 format: "email",
             },
             {
-                validateFunction: function (rule, value, data, callback) {
+                validateFunction: function (rule: any, value: string, data: any, callback: (arg0: string) => void) {
                     // const reg=/^14$/
-                    const reg = /^1[3-9]\d{9}$/
-                    if (!reg.test(value)) {
+                    // const reg = /^1[3-9]\d{9}$/
+                    //!reg.test(value)||
+                    const regEmail =/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
+                    if (!regEmail.test(value)) {
                         callback("用户名格式不正确")
                     }
                     return true
@@ -25,7 +27,7 @@ export const rules = {
                 errorMessage: "请输入密码",
             },
             {
-                validateFunction: function (rule, value, data, callback) {
+                validateFunction: function (rule: any, value: string, data: any, callback: (arg0: string) => void) {
                     const reg = /^\w{6,}/
                     if (!reg.test(value)) {
                         callback("用户名格式不正确")

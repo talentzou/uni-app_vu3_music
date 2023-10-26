@@ -2,14 +2,16 @@
     <view style="padding: 5px">
         <svg
             class="icon"
-            aria-hidden="true">
-            <use :xlink:href="prefix+icon"></use>
+            :style="{ width: `${props.width}px`, height: `${props.height}px` }"
+            aria-hidden="true"
+            @tap="btnFunction">
+            <use :xlink:href="props.prefix + props.icon"></use>
         </svg>
     </view>
 </template>
 
 <script setup lang="ts">
-    defineProps({
+    const props = defineProps({
         prefix: {
             type: String,
             default: "#",
@@ -18,12 +20,25 @@
             type: String,
             default: "",
         },
+        width: {
+            type: Number,
+            default: 30,
+        },
+        height: {
+            type: Number,
+            default: 30,
+        },
+        isPlay: {
+            type: Boolean,
+            default: false,
+        },
     })
+    const $emits = defineEmits<{ (e: "play"): void }>()
+    const btnFunction = () => {
+        if (props.icon === "icon-kaishi" || props.icon === "icon-zanting1") {
+            $emits("play")
+        }
+    }
 </script>
 
-<style scoped lang="scss">
-    .icon {
-        width: 30px;
-        height: 30px;
-    }
-</style>
+<style scoped lang="scss"></style>

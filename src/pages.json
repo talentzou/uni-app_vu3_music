@@ -29,13 +29,7 @@
 				"navigationBarTitleText": "视频"
 			}
 		},
-		{
-			"path": "pages/community/community",
-			"style": {
-				"navigationBarTitleText": "社区",
-				"navigationStyle": "custom"
-			}
-		},
+		
 		{
 			"path": "pages/dailyRec/dailyRec",
 			"style": {
@@ -91,6 +85,13 @@
 				"navigationBarTitleText": "搜索",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/lyric/lyric",
+			"style": {
+				"navigationBarTitleText": "lyric",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {
@@ -118,10 +119,6 @@
 			{
 				"text": "我的",
 				"pagePath": "pages/my/my"
-			},
-			{
-				"text": "社区",
-				"pagePath": "pages/community/community"
 			}
 		]
 	}

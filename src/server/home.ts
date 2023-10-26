@@ -10,27 +10,15 @@ export const homepage = () =>
     request<tabbarData[]>({
         url: "/homepage/dragon/ball",
     })
-//歌单
-export const getPlaylistReq = () =>
-    request<any>({
-        url: "/personalized",
-        method: "GET",
-        data: {
-            limit: 8,
-        },
-    })
-// //推荐新歌
-export const getPodcastReq = () =>
-    request<any>({
-        url: "/personalized/newsong",
-        method: "GET",
-        data: {
-            limit: 6,
-        },
-    })
+
+
+type Homepage={
+    [property:string]:any,
+    block:[]
+}
 //首页发现信息
 export const getHomepage = () =>
-    request<any>({
+    request< Homepage>({
         url: "/homepage/block/page",
         method: "GET",
         data: {

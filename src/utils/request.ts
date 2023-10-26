@@ -1,10 +1,15 @@
-//import { userStore } from "@/store/modules/user";
-
+// import { userStore } from "@/store/modules/user";
+// import { getToken } from "./token";
+// const $userStore=userStore()
 export interface responseData<T> {
     code: number
     data: T
-    message: string
-    banners?:any
+    message?: string
+    banners?:T,
+    songs?:T,
+    playlist?:T,
+    result?:T
+
 }
 const baseUrl = "https://music.zouhjweb.top"
 /**
@@ -14,23 +19,14 @@ const httpInterceptor = {
     //拦截触发调用
     invoke(options: any) {
         // console.log(options);
-        //  console.log( options.url);
-         
         //网络地址拼接
         options.url = baseUrl + options.url
         console.log(options.url);
-        
         //添加超时时间
         options.timeout = 5000
-        // const value = uni.getStorageSync('cookie');
             //添加token
-            options.header = {
-                ...options.header,
-                // "Cookie":value
-                //配置请求来源
-            }
         //携带用户代理身份的凭据
-        // const token='111'
+        // const token= getToken()
         // options.header.Authorization=token
         // console.log('99999999999',process.env.NODE_ENV);
     },

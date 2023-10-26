@@ -1,17 +1,27 @@
 import request from "@/utils/request"
 //热搜列表(详细)
-export  const getSearchHotDetail=()=>request({
-    url:'/search/hot'
-})
+type searchHot = {
+    hots: []
+}
+export const getSearchHotDetail = () =>
+    request<searchHot>({
+        url: "/search/hot",
+    })
 //搜索
-export  const getSearchMultiMatch=(keywords:string)=>request({
-    url:'/cloudsearch',
-    data:{
-        keywords
-    }
-})
+type cloudsearch = {
+    searchQcReminder: null
+    songCount: number
+    songs: []
+}
+export const getSearchMultiMatch = (keywords: string) =>
+    request<cloudsearch>({
+        url: "/cloudsearch",
+        data: {
+            keywords,
+        },
+    })
 //所有榜单内容摘要/toplist/detail
-export  const getToplistDetail=()=>request({
-    url:'/toplist',
-   
-})
+export const getToplistDetail = () =>
+    request({
+        url: "/toplist",
+    })

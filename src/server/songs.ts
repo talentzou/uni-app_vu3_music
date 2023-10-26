@@ -7,7 +7,11 @@ export const getSongDetail=(ids:string|number)=>request({
     }
 })
 //获取音乐url
-export const getSongUrl=(id:string|number)=>request({
+type getSongUrl={
+  [property:string]:any,
+  url:string
+}
+export const getSongUrl=(id:string|number)=>request<getSongUrl>({
   url:'/song/url/v1',
   data:{
     id,
@@ -16,3 +20,10 @@ export const getSongUrl=(id:string|number)=>request({
   }
 })
 //song/url/v1
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getLyric=(id:string|number)=>request<any>({
+  url:'/lyric',
+  data:{
+    id,
+  }
+})

@@ -4,7 +4,7 @@
         <swiper class="swiper">
              <!-- eslint-disable-next-line vue/no-unused-vars -->
             <swiper-item v-for="(swiper, index) in props.list" :key="swiper">
-                <view class="item" v-for="item in swiper.resources" :key="item.resourceId">
+                <view class="item" v-for="item in swiper.resources" :key="item.resourceId" @tap="$audioStore.initMusic(item.resourceId)">
                     <image class="songs-image" :src="item.uiElement.image.imageUrl" lazy-load></image>
                     <view>
                         <text class="song-name">{{ item.resourceExtInfo.songData?.name||item.uiElement.mainTitle.title }}</text>
@@ -14,8 +14,7 @@
                             <text class="artists" v-for="author in item.resourceExtInfo.artists" :key="author.id" v-else>{{ author.name }}  </text>
                         </view>
                     </view>
-                    <!-- <text class="btn-play" v-if="isPlay">播放</text> -->
-                    <svgIcon class="btn-play" v-if="isPlay" icon="icon-zanting"></svgIcon>
+                    <svgIcon class="btn-play" v-if="isPlay" icon="icon-zanting" ></svgIcon>
                 </view>
             </swiper-item>
         </swiper>
@@ -25,7 +24,9 @@
 <script setup lang="ts">
     //import { ref, onMounted, computed } from "vue"
     import type {resources} from "@/types/home"
+    import { audioStore } from "@/store/modules/audio";
     const props = defineProps<{ list:resources; title: string; isPlay: boolean }>()
+    const $audioStore=audioStore()
 </script>
 <style scoped lang="scss">
     .viewport {
@@ -51,7 +52,7 @@
             margin-right: 10px;
         }
         .message {
-            font-size: 5px;
+            font-size: 10px;
             margin-right: 10px;
             margin-top: 10px;
             width: 100%;

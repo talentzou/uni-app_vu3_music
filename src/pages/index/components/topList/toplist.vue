@@ -3,12 +3,12 @@
         <text class="playlist">排行榜</text>
         <swiper class="swiper">
             <swiper-item v-for="(item, index) in props.data" :key="index">
-                <uni-card spacing="0" padding="0">
+                <uni-card spacing="0" >
                     <!-- 排行榜标题 -->
                     <text class="mainTitle">{{ item.uiElement.mainTitle?.title }}</text>
                     <view v-for="(list, sum) in item.resources" :key="sum">
                         <!-- 排行榜列表 -->
-                        <view class="item">
+                        <view class="item" @tap="$audioStore.initMusic(list.resourceId)">
                             <image class="image" :src="list.uiElement.image?.imageUrl" lazy-load></image>
                             <text class="">{{ sum + 1 }}</text>
                             <view>
@@ -28,7 +28,9 @@
 
 <script setup lang="ts">
     import type { resources } from "@/types/home"
+    import { audioStore } from "@/store/modules/audio";
     const props = defineProps<{ data: resources }>()
+    const $audioStore= audioStore()
 </script>
 
 <style scoped lang="scss">

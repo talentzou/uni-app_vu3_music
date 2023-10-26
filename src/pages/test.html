@@ -1,12 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>v
-<body>
-    <div>今天的更改</div>
-    <image src="@/static/login.png"></image>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            ul {
+                width: 200px;
+                height: 200px;
+                background-color: #eee;
+                overflow: auto;
+                transition: all 1s linear;
+                margin-top: 200px;
+            }
+            li {
+                height: 300px;
+                background-color: skyblue;
+                list-style-type: none;
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="outer">
+            <li id="insider">1111111111111111 2222222222222222 3333333333333333 4444444444444444 5555555555555555 6666666666666666</li>
+        </ul>
+
+        <button onclick="set()">set</button>
+        <script>
+            const outEle = document.getElementById("outer")
+            const insideEle = document.getElementById("insider")
+            
+            //onscroll事件的处理函数
+            // outEle.onscroll = function readScrollTop() {
+            //     console.log("scrollTop:", outEle.scrollTop) // 可以清楚的看到滚动的距离
+            // }
+            const set=()=>{
+                console.log(outEle);
+                outEle.scrollTop=100
+            }
+ 
+        </script>
+    </body>
 </html>
+/* 播放进度更新 */
+// let index = 0
+// innerAudioContext.onTimeUpdate(() => {
+//     currentTime.value = innerAudioContext.currentTime
+//     if (index === 0) {
+//         lyr.value?.$el.children[0].classList.add("color")
+//     }
+//     // console.log(innerAudioContext.currentTime)
+//     //四舍五入取整数
+//     // console.warn(index)
+
+//     // startIndex = Math.round(innerAudioContext.currentTime)
+//     // console.log("startIndex", startIndex)
+//     if (innerAudioContext.currentTime >= lyricList.value[index + 1].Time) {
+//         lyr.value?.$el.children[index]?.classList.remove("color")
+//         index++
+//         lyr.value?.$el.children[index]?.classList.add("color")
+
+//         if (index > 6) {
+//             scrollTop.value = 40 * (index - 6)
+//         }
+//     }
+// })

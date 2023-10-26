@@ -42,21 +42,24 @@
 <script lang="ts" setup>
     import { ref, reactive } from "vue"
     import {rules} from "@/utils/rule";
+    import { userStore } from "@/store/modules/user";
+    const $userStoreData=userStore()
     type user = {
         userName: string
         password: string
     }
     const profile = reactive<user>({
-        userName: "hello",
-        password: "123456",
+        userName: "tengjingshu19@163.com",
+        password: "aa123456",
     })
   
     const form = ref<any>()
     const submit = () => {
         form.value
             .validate()
-            .then((res:any) => {
+            .then(async (res: user) => {
                 console.log("表单数据信息：", res)
+                $userStoreData.login(profile)
             })
             .catch((err:any) => {
                 console.log("表单错误信息：", err)

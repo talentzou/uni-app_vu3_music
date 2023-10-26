@@ -1,113 +1,99 @@
 <template>
     <view class="view">
         <view
-            ><image
-                src="@/assets/login.jpg"
-                class="image"></image
-        ></view>
-        <view class="play"><text class="bb">111111111111111111111111111111111111111111111111111111</text></view>
-        <svgIcon
-            icon="icon-zanting"
-            v-if="isShow"
-            @tap="playBtn"></svgIcon>
-        <svgIcon
-            icon="icon-bofangzhong"
-            v-else
-            @tap="btnState"></svgIcon>
+            class="navigator"
+            @tap="toLyric">
+            <view
+                ><image
+                    src="@/assets/login.jpg"
+                    class="image"></image
+            ></view>
+            <view class="play"
+                ><text class="songName">{{ $songStoreData.songName ? $songStoreData.songName : "暂时无数据" }}</text>
+                <view class="artists">
+                    <template
+                        v-for="ar in $songStoreData.artists"
+                        :key="ar.id">
+                        <text>{{ ar.name }}</text></template
+                    >
+                </view>
+            </view>
+        </view>
+        <view @tap="playBtn"
+            ><svgIcon
+                icon="icon-zanting"
+                v-if="$audioStore.isPlayState"></svgIcon>
+            <svgIcon
+                icon="icon-bofangzhong"
+                v-else></svgIcon>
+        </view>
         <svgIcon icon="icon-bofangliebiao"></svgIcon>
     </view>
 </template>
 
 <script setup lang="ts">
-    // import { onShow } from "@dcloudio/uni-app"
-    import { ref, watch } from "vue"
+    import { watch } from "vue"
     import { songsStore } from "@/store/modules/songs"
+    import { audioStore } from "@/store/modules/audio"
     const $songStoreData = songsStore()
-    // console.log("$songStoreData", $songStoreData)
-    //播放按钮图标切换
-    let isShow = ref<boolean>(true)
-    //音乐实例
-    let innerAudioContext = uni.createInnerAudioContext()
-    innerAudioContext.onPlay(() => {
-        console.log("暂停事件触发")
-    })
-    innerAudioContext.onPause(() => {
-        console.log("暂停事件触发")
-    })
-    const playMusic = async () => {
-        isShow.value = !isShow.value
-        isPlay = false
-        innerAudioContext.autoplay = true
-        innerAudioContext.src = $songStoreData.songUrl
-        innerAudioContext.onError((res) => {
-            console.log(res?.errMsg)
-            console.log(res?.errCode)
-        })
-    }
-    //播放暂停按钮
-    //音乐实例控制
-    let isPlay = true
-    const btnState = () => {
-        if (!isPlay) {
-            console.log("播放")
-            innerAudioContext.play()
-            isPlay = !isPlay
-        } else {
-            console.log("音乐暂停")
-            innerAudioContext.pause()
-            isPlay = !isPlay
-        }
-        isShow.value = !isShow.value
-    }
+    const $audioStore = audioStore()
     //播放音乐icon·
     const playBtn = async () => {
-        await playMusic()
+        $audioStore.playAndPause()
+    }
+    //跳转歌词页面
+    const toLyric = () => {
+        uni.navigateTo({
+            url: `/pages/lyric/lyric`,
+        })
     }
     //监听歌曲id变化
     watch(
         () => $songStoreData.songId,
         (newVal, oldVal) => {
-            isPlay = true
-            innerAudioContext.destroy()
+            $audioStore.destroyInstance()
+            $songStoreData.getLyricData()
             console.log(newVal, oldVal)
-            innerAudioContext = uni.createInnerAudioContext()
         }
     )
-    defineExpose({ playMusic, isShow })
+
 </script>
 
 <style scoped lang="scss">
     .view {
-        width: 100%;
         box-sizing: border-box;
-        height: $uni-nav-bottom;
         display: flex;
-        padding: 0 5px;
         align-items: center;
+        width: 100%;
+        padding: 0 10px;
+        height: $uni-nav-bottom;
+        overflow: hidden;
+    }
+    .navigator {
+        display: flex;
+        align-items: center;
+        width: 280px;
     }
     .image {
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        margin-right: 10px;
     }
-    // .play {
-    //     width: 250px;
-    //     .text {
-    //         width: 150px;
-    //         white-space: nowrap;
-    //         overflow: hidden;
-    //         text-overflow:ellipsis;
-    //         background-color: red;
-    //     }
-    // }
+
     .play {
-        width: 250px; /* 这里设置固定宽度 */
+        padding-left: 5px;
+        .songName {
+            width: 235px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+        }
+    }
+    .artists {
+        width: 235px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        text {
-            margin-right: 10px;
-        }
     }
 </style>

@@ -1,33 +1,31 @@
 import { defineStore } from "pinia"
 import { ref } from "vue"
-import { loginData } from "@/server/login"
-import type { user } from "@/types/user"
+import  {userLogin} from '@/server/login'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getToken, setToken, clearToken } from "@/utils/token"
 export const userStore = defineStore("user", () => {
-    // 用户信息
-    const profile = ref<user>({})
-    const cookie=ref<string>()
-    const test = (val) => {
-        console.log("5555555555555555",val);
+    const avatar=ref<string>('')
+    const token = ref<string>("kkkkkk")
+    const storage = (val:string) => {
+        setToken("token", val)
+    }
+    //清除
+    const clear = () => {
+        getToken("token")
+    }
+    //登录
+    const login=async(profile:any)=>{
+        console.log(profile);
+        const res=await userLogin(profile)
+        console.log(res);
         
-        setToken("cookie", val)
-    }
-    const clear=()=>{
-       getToken('cookie')
-    }
-    const login=async()=>{
-         const res= await loginData()
-        //  login.value=res
-        //  console.log("data",login.value);
-         cookie.value=res.cookie
-         console.log("cookie",cookie.value);
-         test(res.cookie)
     }
     return {
-        profile,
-        test,
+        // profile,
+        storage,
         clear,
+        token,
         login,
+        avatar,
     }
 })

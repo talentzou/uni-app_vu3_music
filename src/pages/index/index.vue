@@ -1,6 +1,6 @@
 <template>
     <view class="viewport">
-        <navCustom icon="mic-filled"></navCustom>
+        <navCustom icon="mic-filled" nav="bars"></navCustom>
         <scroll-view scroll-y class="scroll-view">
             <!-- 主页轮播图 -->
             <banner />
@@ -45,6 +45,9 @@
     const newSongList = ref<resources>({})
     onMounted(async () => {
         let { code, data } = await getHomepage()
+        let res = await getHomepage()
+        console.log(res);
+        
         if (code === 200) {
             playlists.value = data.blocks[1].creatives
             console.log(  playlists.value );

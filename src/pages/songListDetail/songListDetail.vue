@@ -5,13 +5,14 @@
         <view class="filter">
             <view class="row">
                 <!-- 歌单图片 -->
-                <view> <image
-                    class="surface"
-                    :src="songListDetailRes?.coverImgUrl"
-                    mode="aspectFit"
-                   >
-                </image></view>
-               
+                <view>
+                    <image
+                        class="surface"
+                        :src="songListDetailRes?.coverImgUrl"
+                        mode="aspectFit">
+                    </image
+                ></view>
+
                 <!-- 歌单信息 -->
                 <view>
                     <text class="title">{{ songListDetailRes?.name }}</text>
@@ -48,8 +49,9 @@
         <view
             v-for="(songs, index) in songsList"
             :key="index"
-            class="list">
-            <text style="width: 25px; text-align: center">{{ index }}</text>
+            class="list"
+            @tap="$audioStore.initMusic(songs.id)">
+            <text style="width: 25px; text-align: center">{{ index + 1 }}</text>
             <view class="songs">
                 <text class="song-name">{{ songs.name }}</text>
                 <view>
@@ -65,18 +67,19 @@
                 icon="icon-gengduo"
                 class="more"></svgIcon
         ></view>
-    </scroll-view> 
+    </scroll-view>
     <Play></Play>
 </template>
 
 <script lang="ts" setup>
     import { ref } from "vue"
     import { getPlaylistDetail, getPlaylistTrackAll } from "@/server/home"
+    import { audioStore } from "@/store/modules/audio";
     import { onLoad } from "@dcloudio/uni-app"
     const icons = ["icon-huiyuanzhuanxiang", "icon-pinglun", "icon-shoucang"]
-    const props=defineProps<{id:string}>()
-    // console.log(props.name);
-    
+    const $audioStore=audioStore()
+    const props = defineProps<{ id: string }>()
+
     //歌单信息
     let songListDetailRes = ref<any>()
     //歌单列表
@@ -87,12 +90,13 @@
         songListDetailRes.value = playlist
         // console.log(songListDetailRes)
         songsList.value = songs
-        // console.log(songs)
+        // console.log('songs',res)
     }
-    onLoad((options) => {
+   //页面加载，获取路由参数
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    onLoad((options:any) => {
         resData()
-        console.log('5555',options);
-        
+        // console.log('5555',options);
     })
 </script>
 
